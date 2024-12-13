@@ -18,11 +18,11 @@ file(GLOB SHADERS ${SHADER_DIR}/*.vert ${SHADER_DIR}/*.frag ${SHADER_DIR}/*.comp
 
 foreach(SHADER IN LISTS SHADERS)
     get_filename_component(FILENAME ${SHADER} NAME)
-    add_custom_command(OUTPUT ${SHADER_DIR}/${FILENAME}.spv
-	COMMAND ${Vulkan_GLSLC_EXECUTABLE} ${SHADER} -o ${SHADER_DIR}/${FILENAME}.spv
+    add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${FILENAME}.spv
+	COMMAND ${Vulkan_GLSLC_EXECUTABLE} ${SHADER} -o ${CMAKE_CURRENT_BINARY_DIR}/${FILENAME}.spv
 	DEPENDS ${SHADER}
 	COMMENT "Compiling ${FILENAME}")
-list(APPEND SPV_SHADERS ${SHADER_DIR}/${FILENAME}.spv)
+list(APPEND SPV_SHADERS ${CMAKE_CURRENT_BINARY_DIR}/${FILENAME}.spv)
 endForeach()
 
 add_custom_target(shaders ALL DEPENDS ${SPV_SHADERS})
